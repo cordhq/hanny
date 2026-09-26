@@ -57,21 +57,15 @@ function toast(msg){
 }
 function catName(id){ return CATEGORIES.find(c => c.id === id)?.name || ''; }
 
-/* ============ Render: shop-by-service tiles ============ */
-function renderServices(){
-  $('#service-grid').innerHTML = CATEGORIES.map(c => `
-    <button class="service-tile" data-cat="${c.id}">
-      <span class="s-icon">${icon(c.icon)}</span>
-      <span class="s-name">${escHtml(c.name)}</span>
-    </button>`).join('');
-  $$('#service-grid .service-tile').forEach(btn => {
+/* ============ Services section: wire "Book this" buttons on each photo card ============ */
+function bindServiceCards(){
+  $$('.service-card .service-book').forEach(btn => {
     btn.onclick = () => {
-      state.activeCat = btn.dataset.cat;
-      state.wishlistOnly = false;
-      $('#wishlist-toggle').classList.remove('active-icon');
-      renderFilterRow();
-      renderProducts();
-      $('#shop').scrollIntoView({ behavior:'smooth', block:'start' });
+      openModal('#booking-modal');
+      const sel = $('#bk-service');
+      if(sel && [...sel.options].some(o => o.value === btn.dataset.service)){
+        sel.value = btn.dataset.service;
+      }
     };
   });
 }
@@ -445,7 +439,7 @@ window.copyText = (txt)=>{
 
 /* ============ Init ============ */
 function init(){
-  renderServices();
+  bindServiceCards();
   renderFilterRow();
   populateBookingServices();
   renderProducts();
