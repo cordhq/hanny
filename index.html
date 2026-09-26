@@ -1,1 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hanni Beauty Palace — Organic Skincare, Makeup & Beauty Sessions</title>
+<meta name="description" content="Hanni Beauty Palace, Abeokuta — organic skincare, makeup, lash & microblading, pedicure & manicure, facials, body massage. Shop products or book a session.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%84%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+<div id="toast" class="toast hidden"><span id="toast-text">Added to bag</span></div>
+
+<div class="announce">
+  <div class="announce-track">
+    <span>✨ All sessions are strictly by appointment — book yours today</span>
+    <span>💜 50% deposit secures your booking slot</span>
+    <span>📍 Adebiyi Shopping Complex, Adigbe, Abeokuta</span>
+    <span>✨ All sessions are strictly by appointment — book yours today</span>
+    <span>💜 50% deposit secures your booking slot</span>
+    <span>📍 Adebiyi Shopping Complex, Adigbe, Abeokuta</span>
+  </div>
+</div>
+
+<header class="site-header" id="site-header">
+  <div class="wrap header-row">
+    <button class="icon-btn only-mobile" id="menu-toggle" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
+    </button>
+    <a href="#top" class="logo"><span class="logo-mark">Hanni</span><span class="logo-sub">Beauty Palace</span></a>
+    <nav class="main-nav only-desktop">
+      <a href="#shop">Shop</a>
+      <a href="#services">Services</a>
+      <a href="#policy">Policy</a>
+      <a href="#visit">Visit</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="header-search only-desktop">
+      <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="8.5" cy="8.5" r="6"/><path d="M13 13l4.5 4.5" stroke-linecap="round"/></svg>
+      <input id="search-input" type="search" placeholder="Search products or services…">
+    </div>
+    <div class="header-actions">
+      <a class="icon-btn only-desktop" href="https://wa.me/2347038563822" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">💬</a>
+      <button class="icon-btn" id="wishlist-toggle" aria-label="Wishlist">♥<span class="badge hidden" id="wish-count">0</span></button>
+      <button class="icon-btn" id="cart-toggle" aria-label="Cart">🛒<span class="badge" id="cart-count">0</span></button>
+      <button class="btn btn-primary btn-small only-desktop" id="book-open-header">Book a session</button>
+    </div>
+  </div>
+  <div class="mobile-search only-mobile">
+    <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="8.5" cy="8.5" r="6"/><path d="M13 13l4.5 4.5" stroke-linecap="round"/></svg>
+    <input id="search-input-mobile" type="search" placeholder="Search products…">
+  </div>
+  <div class="mobile-menu hidden" id="mobile-menu">
+    <a href="#shop">Shop</a><a href="#services">Services</a><a href="#policy">Booking Policy</a><a href="#visit">Visit Us</a><a href="#faq">FAQ</a>
+    <button class="btn btn-primary" id="book-open-mobile">Book a session</button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Organic beauty, made personal</p>
+        <h1>Your glow, <em>your palace.</em></h1>
+        <p class="hero-lede">Skincare, makeup and beauty sessions crafted for you at Hanni Beauty Palace, Abeokuta — organic ingredients, trained hands, and appointments that run on your time.</p>
+        <div class="hero-ctas">
+          <a href="#shop" class="btn btn-primary">Shop products</a>
+          <button class="btn btn-ghost" id="book-open-hero">Book a session</button>
+        </div>
+        <div class="hero-trust"><div class="stars">★★★★★</div><p>Trusted by clients across Abeokuta & Ogun State</p></div>
+      </div>
+      <div class="hero-art">
+        <div class="hero-plinth" style="padding:0; overflow:hidden; background:#fff;">
+          <img src="images/salon-interior.webp" alt="Hanni Beauty Palace luxury salon" style="width:100%; height:100%; object-fit:cover; border-radius:28px; min-height:380px;">
+        </div>
+        <div class="hero-badge"><span class="hero-badge-icon">💜</span><div><strong>Real salon, real glow</strong><p>Adebiyi Complex, Adigbe</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-strip">
+    <div class="wrap trust-grid">
+      <div class="trust-item"><span>🌱</span><div><p class="t-title">Organic ingredients</p><p class="t-sub">Gentle, plant-led formulas</p></div></div>
+      <div class="trust-item"><span>💅</span><div><p class="t-title">Trained technicians</p><p class="t-sub">Lash, nails & skin specialists</p></div></div>
+      <div class="trust-item"><span>🗓️</span><div><p class="t-title">Appointment-only</p><p class="t-sub">Unhurried, one-on-one care</p></div></div>
+      <div class="trust-item"><span>🔒</span><div><p class="t-title">Secure bank transfer</p><p class="t-sub">Clear, upfront pricing</p></div></div>
+    </div>
+  </section>
+
+  <section class="section" id="services">
+    <div class="wrap">
+      <div class="section-head"><h2>Shop by service</h2><p>Everything on the palace menu, in one place — from your original flyer.</p></div>
+      <div class="service-grid" id="service-grid"></div>
+    </div>
+  </section>
+
+  <section class="section section-tint" id="shop">
+    <div class="wrap">
+      <div class="section-head"><h2>Best sellers</h2><p>Real product photos in purple & gold — click to add to bag. All offline editable.</p></div>
+      <div class="filter-row" id="filter-row"></div>
+      <p class="showing-text" id="showing-text"></p>
+      <div class="product-grid" id="product-grid"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap promo-grid">
+      <div class="promo-copy">
+        <p class="eyebrow">This month</p>
+        <h2>Book a facial, take home a treat.</h2>
+        <p>Every facial or skincare session this month comes with a complimentary travel-size product from our organic range.</p>
+        <button class="btn btn-primary" id="book-open-promo">Book this offer</button>
+      </div>
+      <div class="promo-art"><img src="images/product-collection.webp" alt="Product collection" style="border-radius:28px; width:100%;"></div>
+    </div>
+  </section>
+
+  <section class="section" id="policy">
+    <div class="wrap policy-panel">
+      <div class="section-head light"><h2>Booking policy</h2><p>From your Rules flyer — simple house rules.</p></div>
+      <div class="policy-grid">
+        <div class="policy-card"><span class="policy-icon">🗓️</span><h3>Appointment only</h3><p>All sessions are strictly by appointment — walk-ins aren't guaranteed a slot.</p></div>
+        <div class="policy-card"><span class="policy-icon">💳</span><h3>50% advance deposit</h3><p>A 50% advance payment secures your booking. Full balance is settled at your session.</p></div>
+        <div class="policy-card"><span class="policy-icon">⏱️</span><h3>On-time, please</h3><p>Defaulting on your booked time attracts a ₦5,000 fee. Please stick to your slot.</p></div>
+        <div class="policy-card"><span class="policy-icon">🚫</span><h3>Non-refundable</h3><p>Deposits and payments are non-refundable once a slot is booked.</p></div>
+      </div>
+      <div class="pay-accounts">
+        <h3>Pay your deposit into</h3>
+        <div class="pay-grid">
+          <div class="pay-card"><p class="pay-bank">Wema Bank</p><p class="pay-num">0245817735</p><p class="pay-name">Hanni Beauty Palace</p><button class="btn btn-ghost btn-small" onclick="copyText('0245817735')">Copy</button></div>
+          <div class="pay-card"><p class="pay-bank">Access Bank</p><p class="pay-num">0031605726</p><p class="pay-name">Akomolafe Anu</p><button class="btn btn-ghost btn-small" onclick="copyText('0031605726')">Copy</button></div>
+        </div>
+        <p class="pay-note">Your satisfaction is our pleasure — thanks for your patronage. 💜</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="visit">
+    <div class="wrap visit-grid">
+      <div>
+        <p class="eyebrow">Come see us</p>
+        <h2>Visit the palace</h2>
+        <p class="visit-lede">Drop by, call ahead, or send a WhatsApp message. We are inside Adebiyi Shopping Complex.</p>
+        <div class="visit-list">
+          <a class="visit-item" href="https://www.google.com/maps/search/?api=1&query=Adebiyi+Shopping+Complex+Kuforiji+Olubi+Junction+Onikoko+Road+Adigbe+Abeokuta" target="_blank"><span class="visit-icon">📍</span><div><strong>Address</strong><p>Adebiyi Shopping Complex, Kuforiji Olubi Junction, Onikoko Road, Adigbe, Abeokuta, Ogun State</p></div></a>
+          <a class="visit-item" href="tel:+2347038563822"><span class="visit-icon">📞</span><div><strong>Call or text</strong><p>0703 856 3822 · 0812 042 8466</p></div></a>
+          <a class="visit-item" href="https://instagram.com/hanni_beautyplace" target="_blank"><span class="visit-icon">📷</span><div><strong>Instagram</strong><p>@hanni_beautyplace</p></div></a>
+          <a class="visit-item" href="https://wa.me/2347038563822" target="_blank"><span class="visit-icon">💬</span><div><strong>WhatsApp</strong><p>Fastest way to reach the team</p></div></a>
+        </div>
+      </div>
+      <div>
+        <div class="map-wrap">
+          <iframe src="https://www.google.com/maps?q=Adebiyi+Shopping+Complex+Adigbe+Abeokuta+Ogun+State+Nigeria&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map to Hanni Beauty Palace"></iframe>
+          <div class="map-actions">
+            <a class="btn btn-primary btn-small" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Adebiyi+Shopping+Complex+Kuforiji+Olubi+Junction+Onikoko+Road+Adigbe+Abeokuta">Get Directions – Google</a>
+            <a class="btn btn-ghost btn-small" target="_blank" href="https://maps.apple.com/?q=Adebiyi+Shopping+Complex+Adigbe+Abeokuta">Apple Maps</a>
+            <a class="btn btn-ghost btn-small" target="_blank" href="https://wa.me/2347038563822?text=Hi%2C%20please%20send%20me%20your%20live%20location">WhatsApp Location</a>
+          </div>
+        </div>
+        <div class="visit-map-note">🚩 Landmark: Beside Kuforiji Olubi Junction, Onikoko Road, Adigbe. Look for purple & gold Hanni signage. Bus/taxi from Adigbe market — 2 mins.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tint" id="faq">
+    <div class="wrap">
+      <div class="section-head"><h2>Frequently asked questions</h2><p>Answers from your flyer Rules + common client questions. Edit this section directly in index.html.</p></div>
+      <div class="faq-grid">
+        <details class="faq-item" open><summary class="faq-q">Are walk-ins allowed? <span class="icon">+</span></summary><div class="faq-a"><strong>No.</strong> All sessions are strictly by appointment. Please book via WhatsApp 07038563822 at least a day ahead. Walk-ins aren't guaranteed a slot.</div></details>
+        <details class="faq-item"><summary class="faq-q">How do I secure my booking? <span class="icon">+</span></summary><div class="faq-a">A <strong>50% advance deposit</strong> secures your slot. Send proof of payment on WhatsApp, and your time is locked in. Balance is paid at your session.</div></details>
+        <details class="faq-item"><summary class="faq-q">What if I'm late or miss my slot? <span class="icon">+</span></summary><div class="faq-a">Please stick to your booked time. Defaulting on your booked time attracts a <strong>₦5,000 fee</strong> as stated in our house rules. If you will be late, message us early.</div></details>
+        <details class="faq-item"><summary class="faq-q">Are payments refundable? <span class="icon">+</span></summary><div class="faq-a">No. Deposits and payments are <strong>non-refundable</strong> once a slot is booked. You can reschedule with 24h notice without losing deposit.</div></details>
+        <details class="faq-item"><summary class="faq-q">How do I pay? <span class="icon">+</span></summary><div class="faq-a">Bank transfer to:<br><strong>Wema Bank – 0245817735 – Hanni Beauty Palace</strong><br><strong>Access Bank – 0031605726 – Akomolafe Anu</strong><br>Send receipt on WhatsApp. No POS yet.</div></details>
+        <details class="faq-item"><summary class="faq-q">Where are you located exactly? <span class="icon">+</span></summary><div class="faq-a"><strong>Adebiyi Shopping Complex, Kuforiji Olubi Junction, Onikoko Road, Adigbe, Abeokuta, Ogun State.</strong> Inside the complex, upstairs. Use the map above and the Get Directions button.</div></details>
+        <details class="faq-item"><summary class="faq-q">Do you sell products online? <span class="icon">+</span></summary><div class="faq-a">Yes! Add items to bag in the Shop section and checkout — it opens WhatsApp with your order pre-filled. Delivery in Abeokuta & environs, or pickup at store.</div></details>
+        <details class="faq-item"><summary class="faq-q">What products and services do you offer? <span class="icon">+</span></summary><div class="faq-a">Organic Skincare, Makeup, Selling of Cosmetics, Lash & Microblading, Pedicure & Manicure, Facials, Body Massage & Spa, Body Enhancement, Aphrodisiacs/Kayamata, Perfume & Body Spray. All organic, vegan, cruelty-free where possible.</div></details>
+        <details class="faq-item"><summary class="faq-q">How do I get to the store from Adigbe? <span class="icon">+</span></summary><div class="faq-a">From Adigbe junction, take Onikoko Road to Kuforiji Olubi Junction. Adebiyi Complex is on your right. 2 mins from Adigbe market. Okada or Keke: say “Adebiyi Complex, Kuforiji Olubi”.</div></details>
+        <details class="faq-item"><summary class="faq-q">What are your working hours and fastest contact? <span class="icon">+</span></summary><div class="faq-a">By appointment only. WhatsApp is fastest: <strong>07038563822</strong>. Calls: 08120428466. Instagram DM: @hanni_beautyplace. We reply within minutes during 9am–7pm.</div></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><h2>From flyer to luxury</h2><p>Your original WhatsApp flyer transformed — same heart, premium experience. All images are local in /images folder.</p></div>
+      <div class="showcase-grid">
+        <div class="showcase-card"><img src="images/original-flyer.jpg" alt="Original flyer"><div class="showcase-body"><h3>Original Flyer</h3><p>Rules: appointment only, 50% deposit, ₦5k defaulting fee, non-refundable.</p></div></div>
+        <div class="showcase-card"><img src="images/salon-interior.webp" alt="Salon interior"><div class="showcase-body"><h3>Luxury Interior</h3><p>Purple velvet chairs, gold accents — now your website hero.</p></div></div>
+        <div class="showcase-card"><img src="images/product-collection.webp" alt="Products"><div class="showcase-body"><h3>Product Collection</h3><p>Now split into individual product shots in /images.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tint">
+    <div class="wrap newsletter"><div><h2>Stay in the loop</h2><p>New arrivals, offers and skin tips.</p></div><form id="newsletter-form"><input type="email" required placeholder="Your email"><button type="submit" class="btn btn-primary">Subscribe</button></form></div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div><a href="#top" class="logo footer-logo"><span class="logo-mark">Hanni</span><span class="logo-sub">Beauty Palace</span></a><p class="footer-blurb">Organic skincare, makeup and beauty sessions in Abeokuta — thoughtful care, every visit.</p><div class="footer-social"><a href="https://instagram.com/hanni_beautyplace" target="_blank">IG</a><a href="https://wa.me/2347038563822" target="_blank">WA</a><a href="tel:+2347038563822">Call</a></div></div>
+    <div><h4>Quick links</h4><a href="#shop">Shop</a><a href="#services">Services</a><a href="#policy">Policy</a><a href="#faq">FAQ</a></div>
+    <div><h4>Customer care</h4><a href="#policy">Deposits & refunds</a><a href="#policy">Payment accounts</a><a href="https://wa.me/2347038563822" target="_blank">Contact WhatsApp</a></div>
+    <div><h4>Visit</h4><p class="footer-address">Adebiyi Shopping Complex, Kuforiji Olubi Junction, Onikoko Road, Adigbe, Abeokuta, Ogun State</p></div>
+  </div>
+  <div class="footer-bottom"><p>© 2026 Hanni Beauty Palace. All rights reserved.</p><p>Bank transfer · Pay at session · Offline editable</p></div>
+</footer>
+
+<a class="whatsapp-fab" href="https://wa.me/2347038563822" target="_blank" aria-label="WhatsApp">💬</a>
+<div class="overlay hidden" id="overlay"></div>
+<aside class="drawer" id="cart-drawer"><div class="drawer-head"><h3>Your bag</h3><button class="icon-btn" id="cart-close">✕</button></div><div class="drawer-body" id="cart-items"></div><div class="drawer-foot"><div class="drawer-row"><span>Subtotal</span><strong id="cart-subtotal">₦0</strong></div><p class="drawer-note">Delivery/pickup arranged after you send order.</p><button class="btn btn-primary btn-block" id="cart-checkout">Checkout</button></div></aside>
+<div class="modal hidden" id="checkout-modal"><div class="modal-card"><div class="modal-head"><h3>Checkout</h3><button class="icon-btn" id="checkout-close">✕</button></div><form id="checkout-form" class="modal-body"><div class="field"><label>Full name *</label><input required id="co-name" type="text"></div><div class="field"><label>Phone *</label><input required id="co-phone" type="tel"></div><div class="field"><label>Delivery</label><select id="co-method"><option>Pickup at store</option><option>Delivery</option></select></div><div class="field" id="co-address-field"><label>Address</label><textarea id="co-address" rows="2"></textarea></div><div class="order-summary" id="checkout-summary"></div><button type="submit" class="btn btn-primary btn-block">Send order via WhatsApp</button></form></div></div>
+<div class="modal hidden" id="booking-modal"><div class="modal-card"><div class="modal-head"><h3>Book a session</h3><button class="icon-btn" id="booking-close">✕</button></div><form id="booking-form" class="modal-body"><div class="field"><label>Full name *</label><input required id="bk-name"></div><div class="field"><label>Phone *</label><input required id="bk-phone"></div><div class="field"><label>Service</label><select id="bk-service"></select></div><div class="row-2"><div class="field"><label>Date *</label><input required id="bk-date" type="date"></div><div class="field"><label>Time *</label><input required id="bk-time" type="time"></div></div><div class="field"><label>Notes</label><textarea id="bk-notes" rows="2"></textarea></div><div class="policy-mini">50% deposit secures booking. Non-refundable. ₦5k fee for defaulting.</div><button type="submit" class="btn btn-primary btn-block">Send booking via WhatsApp</button></form></div></div>
+
+<script src="script.js"></script>
+</body>
+</html>
