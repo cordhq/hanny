@@ -123,11 +123,12 @@ function renderProducts(){
   }
   grid.innerHTML = list.map(p => `
     <div class="p-card">
-      <div class="p-media">
+      <div class="p-media${p.image ? ' has-img' : ''}">
         ${p.best ? '<span class="p-best">Best seller</span>' : ''}
         <button class="p-wish ${state.wishlist.includes(p.id) ? 'active' : ''}" data-wish="${p.id}" aria-label="Save to wishlist">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="${state.wishlist.includes(p.id) ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="1.8"><path d="M12 19.4l-7-6.8a4.3 4.3 0 0 1 6.2-6l.8.8.8-.8a4.3 4.3 0 0 1 6.2 6l-7 6.8Z"/></svg>
         </button>
+        ${p.image ? `<img src="${escHtml(p.image)}" alt="${escHtml(p.name)}" loading="lazy" onerror="this.remove(); this.closest('.p-media').classList.remove('has-img');">` : ''}
         ${icon(p.icon)}
       </div>
       <div class="p-body">
@@ -185,7 +186,7 @@ function renderCart(){
   } else {
     body.innerHTML = lines.map(l => `
       <div class="cart-line">
-        <div class="cl-media"><img src="${(PRODUCT_IMAGES.byId && PRODUCT_IMAGES.byId[l.id]) || PRODUCT_IMAGES[l.cat] || 'images/product-collection.webp'}" alt="${l.name}" loading="lazy"></div>
+        <div class="cl-media"><img src="${escHtml(l.image || 'images/product-collection.webp')}" alt="${escHtml(l.name)}" loading="lazy"></div>
         <div class="cl-body">
           <p class="cl-name">${escHtml(l.name)}</p>
           <p class="cl-price">${NGN(l.price)} each</p>
