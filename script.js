@@ -20,61 +20,11 @@ const ICONS = {
 };
 const icon = name => ICONS[name] || ICONS.leaf;
 
-/* ============ Data — mirrors Hanni Beauty Palace's real service menu ============ */
-const CATEGORIES = [
-  { id:'skincare',    name:'Organic Skincare',        icon:'leaf' },
-  { id:'makeup',      name:'Makeup',                  icon:'lipstick' },
-  { id:'cosmetics',   name:'Cosmetics',                icon:'palette' },
-  { id:'lash',        name:'Lash & Microblading',      icon:'eye' },
-  { id:'nails',       name:'Pedicure & Manicure',      icon:'nail' },
-  { id:'facials',     name:'Facials',                  icon:'mask' },
-  { id:'massage',     name:'Body Massage & Spa',        icon:'massage' },
-  { id:'enhancement', name:'Body Enhancement',          icon:'ribbon' },
-  { id:'perfume',     name:'Perfume & Body Spray',      icon:'perfume' },
-  { id:'wellness',    name:'Wellness Gifts',            icon:'gift' }
-];
-
-const PRODUCT_IMAGES = {
-  skincare: 'images/vitamin-c-serum.webp',
-  makeup: 'images/lipstick-mauve.webp',
-  cosmetics: 'images/eyeshadow-palette.webp',
-  lash: 'images/lash-kit.webp',
-  nails: 'images/nail-polish.webp',
-  facials: 'images/shea-butter.webp',
-  massage: 'images/body-oil-lavender.webp',
-  perfume: 'images/body-oil-lavender.webp',
-  wellness: 'images/product-collection.webp',
-  enhancement: 'images/salon-interior.webp',
-  // per-product overrides
-  byId: {
-    1: 'images/vitamin-c-serum.webp',
-    2: 'images/shea-butter.webp',
-    3: 'images/lipstick-mauve.webp',
-    4: 'images/lipstick-mauve.webp',
-    5: 'images/eyeshadow-palette.webp',
-    6: 'images/lash-kit.webp',
-    7: 'images/nail-polish.webp',
-    8: 'images/shea-butter.webp',
-    9: 'images/body-oil-lavender.webp',
-    10: 'images/body-oil-lavender.webp',
-    11: 'images/product-collection.webp'
-  }
-};
-
-
-const PRODUCTS = [
-  { id:1,  name:'Radiance Face Serum',        cat:'skincare',    icon:'leaf',     price:8500,  best:true,  desc:'Vitamin C & botanical blend for an even, dewy glow.', image:'images/vitamin-c-serum.webp' },
-  { id:2,  name:'Whipped Shea Body Butter',   cat:'skincare',    icon:'leaf',     price:6000,  best:false, desc:'Deeply nourishing, fragrance-light body butter.', image:'images/shea-butter.webp' },
-  { id:3,  name:'Velvet Matte Lip Kit',       cat:'makeup',      icon:'lipstick', price:5500,  best:true,  desc:'Long-wear matte lipstick with a soft liner pencil.', image:'images/lipstick-mauve.webp' },
-  { id:4,  name:'Everyday Glow Foundation',   cat:'makeup',      icon:'lipstick', price:9000,  best:false, desc:'Buildable, breathable coverage in a Nigerian shade range.', image:'images/lipstick-mauve.webp' },
-  { id:5,  name:'Signature Eyeshadow Palette',cat:'cosmetics',   icon:'palette',  price:7500,  best:false, desc:'12 blendable shades, from soft nude to bold plum.', image:'images/eyeshadow-palette.webp' },
-  { id:6,  name:'Luxe Lash Extension Set',    cat:'lash',        icon:'eye',      price:12000, best:true,  desc:'Salon-grade lashes for your next microblading session.', image:'images/lash-kit.webp' },
-  { id:7,  name:'Gel Manicure Polish Duo',    cat:'nails',       icon:'nail',     price:7000,  best:false, desc:'Chip-resistant gel colour, two bottles of your choice.', image:'images/nail-polish.webp' },
-  { id:8,  name:'Rejuvenating Clay Mask',     cat:'facials',     icon:'mask',     price:4500,  best:true,  desc:'Purifying facial clay for a fresh, even complexion.', image:'images/shea-butter.webp' },
-  { id:9,  name:'Relax Massage Oil Blend',    cat:'massage',     icon:'massage',  price:6500,  best:false, desc:'Warm botanical oil used in our signature spa sessions.', image:'images/body-oil-lavender.webp' },
-  { id:10, name:'Signature Body Spray Duo',   cat:'perfume',     icon:'perfume',  price:5000,  best:false, desc:'Two long-lasting fragrances, light enough for daily wear.', image:'images/body-oil-lavender.webp' },
-  { id:11, name:'Wellness Gift Box',          cat:'wellness',    icon:'gift',     price:10000, best:false, desc:'A curated set of traditional care essentials, beautifully packaged.', image:'images/product-collection.webp' }
-];
+/* ============ Data ============ */
+// CATEGORIES and PRODUCTS now live in products.js (edit via admin.html — they're
+// loaded by index.html before this file, so they're already defined here).
+// SHIPPING_ZONES lives in shipping.js, loaded the same way.
+// PAYSTACK_PUBLIC_KEY lives in config.js, loaded the same way.
 
 
 /* ============ State ============ */
@@ -290,44 +240,154 @@ function handleSearch(v){
 $('#search-input').oninput = e => handleSearch(e.target.value);
 $('#search-input-mobile').oninput = e => { $('#search-input').value = e.target.value; handleSearch(e.target.value); };
 
-/* ============ Checkout (sent via WhatsApp — no payment gateway on file) ============ */
+/* ============ Checkout (Paystack payment + shipping fee) ============ */
+const VERIFY_ENDPOINT = (typeof VERIFY_PAYMENT_ENDPOINT !== 'undefined' && VERIFY_PAYMENT_ENDPOINT) || '/api/verify-payment';
+
+// Builds <optgroup> markup from SHIPPING_ZONES (loaded from shipping.js).
+function populateShippingSelect(){
+  const sel = $('#co-shipping');
+  if(!sel || typeof SHIPPING_ZONES === 'undefined') return;
+  const groups = {};
+  SHIPPING_ZONES.forEach((z, i) => {
+    const g = z.group || 'Delivery';
+    (groups[g] = groups[g] || []).push({ ...z, _idx: i });
+  });
+  sel.innerHTML = Object.keys(groups).map(g => `
+    <optgroup label="${escHtml(g)}">
+      ${groups[g].map(z => `<option value="${z._idx}">${escHtml(z.label)}${z.fee ? ' — ' + NGN(z.fee) : ' — Free'}</option>`).join('')}
+    </optgroup>`).join('');
+  onShippingChange();
+}
+function selectedShippingZone(){
+  const sel = $('#co-shipping');
+  if(!sel || typeof SHIPPING_ZONES === 'undefined' || sel.value === '') return null;
+  return SHIPPING_ZONES[Number(sel.value)] || null;
+}
+function shippingFee(){
+  const z = selectedShippingZone();
+  return z ? (Number(z.fee) || 0) : 0;
+}
+function onShippingChange(){
+  const z = selectedShippingZone();
+  const isPickup = !z || /pickup/i.test(z.label || '') || Number(z.fee) === 0;
+  $('#co-address-field').style.display = isPickup ? 'none' : 'block';
+  const noteEl = $('#co-shipping-note');
+  if(noteEl){
+    noteEl.textContent = z && z.note ? z.note : '';
+    noteEl.style.display = z && z.note ? 'block' : 'none';
+  }
+  renderCheckoutSummary();
+}
+$('#co-shipping') && ($('#co-shipping').onchange = onShippingChange);
+
 function renderCheckoutSummary(){
   const lines = cartLines();
+  const fee = shippingFee();
   const rows = lines.map(l => `<div class="os-row"><span>${escHtml(l.name)} × ${l.qty}</span><span>${NGN(l.price * l.qty)}</span></div>`).join('');
-  $('#checkout-summary').innerHTML = rows + `<div class="os-row os-total"><span>Total</span><span>${NGN(cartTotal())}</span></div>`;
+  const feeRow = `<div class="os-row"><span>Delivery</span><span>${fee ? NGN(fee) : 'Free'}</span></div>`;
+  $('#checkout-summary').innerHTML = rows + feeRow + `<div class="os-row os-total"><span>Total</span><span>${NGN(cartTotal() + fee)}</span></div>`;
 }
 
 $('#cart-checkout').onclick = () => {
   if(!cartLines().length){ toast('Your bag is empty'); return; }
   closeCart();
+  populateShippingSelect();
   renderCheckoutSummary();
   openModal('#checkout-modal');
 };
 $('#checkout-close').onclick = closeModals;
-$('#co-address-field').style.display = 'none';
-$('#co-method').onchange = e => { $('#co-address-field').style.display = e.target.value === 'Delivery' ? 'block' : 'none'; };
+
+function buildOrderRef(){
+  return 'HBP-' + Date.now().toString(36).toUpperCase();
+}
 
 $('#checkout-form').onsubmit = e => {
   e.preventDefault();
   const name = $('#co-name').value.trim();
   const phone = $('#co-phone').value.trim();
-  const method = $('#co-method').value;
+  const email = $('#co-email').value.trim();
+  const zone = selectedShippingZone();
   const address = $('#co-address').value.trim();
   const lines = cartLines();
+  const fee = shippingFee();
+  const total = cartTotal() + fee;
 
-  let msg = `Hi Hanni Beauty Palace, I'd like to place an order:\n\n`;
-  lines.forEach(l => msg += `• ${l.name} x${l.qty} — ${NGN(l.price * l.qty)}\n`);
-  msg += `\nTotal: ${NGN(cartTotal())}\n\nName: ${name}\nPhone: ${phone}\nDelivery: ${method}`;
-  if(method === 'Delivery' && address) msg += `\nAddress: ${address}`;
+  if(!name || !phone || !email){ toast('Please fill in your name, phone and email'); return; }
+  if(zone && Number(zone.fee) > 0 && !address){ toast('Please add a delivery address'); return; }
 
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
-  state.cart = {};
-  saveState();
-  renderCart();
-  closeModals();
-  e.target.reset();
-  toast('Order sent — check WhatsApp');
+  if(typeof PaystackPop === 'undefined' || typeof PAYSTACK_PUBLIC_KEY === 'undefined' || !PAYSTACK_PUBLIC_KEY){
+    toast('Payment is not set up yet — please message us on WhatsApp instead.');
+    return;
+  }
+
+  const ref = buildOrderRef();
+  const submitBtn = e.target.querySelector('button[type="submit"]');
+  if(submitBtn){ submitBtn.disabled = true; submitBtn.textContent = 'Opening payment…'; }
+
+  const handler = PaystackPop.setup({
+    key: PAYSTACK_PUBLIC_KEY,
+    email,
+    amount: Math.round(total * 100), // kobo
+    currency: 'NGN',
+    ref,
+    metadata: {
+      custom_fields: [
+        { display_name: 'Customer Name', variable_name: 'customer_name', value: name },
+        { display_name: 'Phone', variable_name: 'phone', value: phone },
+        { display_name: 'Delivery', variable_name: 'delivery', value: zone ? zone.label : 'Pickup' },
+        { display_name: 'Items', variable_name: 'items', value: lines.map(l => `${l.name} x${l.qty}`).join(', ') }
+      ]
+    },
+    callback: response => {
+      verifyAndRedirect(response.reference, { name, email, zone, address, total, itemsCount: lines.reduce((a,l)=>a+l.qty,0) });
+    },
+    onClose: () => {
+      if(submitBtn){ submitBtn.disabled = false; submitBtn.textContent = 'Pay & place order'; }
+      window.location.href = `payment-declined.html?ref=${encodeURIComponent(ref)}&items=${lines.length}&reason=cancelled`;
+    }
+  });
+  handler.openIframe();
 };
+
+async function verifyAndRedirect(reference, order){
+  const qs = new URLSearchParams({
+    ref: reference,
+    name: order.name,
+    email: order.email,
+    total: order.total,
+    items: order.itemsCount
+  });
+  if(order.zone){
+    qs.set('city', order.zone.label);
+    qs.set('state', order.zone.group || '');
+  }
+  try{
+    const res = await fetch(VERIFY_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ reference })
+    });
+    const data = await res.json().catch(() => ({}));
+    if(res.ok && data.status === 'success'){
+      state.cart = {};
+      saveState();
+      renderCart();
+      window.location.href = `payment-success.html?${qs.toString()}`;
+    } else if(res.ok && data.status === 'pending'){
+      state.cart = {};
+      saveState();
+      renderCart();
+      window.location.href = `payment-success.html?${qs.toString()}&pending=1`;
+    } else {
+      window.location.href = `payment-declined.html?${qs.toString()}&reason=declined`;
+    }
+  } catch(err){
+    // Payment likely went through on Paystack's side, but we couldn't reach
+    // our own verification endpoint — send them to the "unverified" state
+    // rather than telling them it failed outright.
+    window.location.href = `payment-declined.html?${qs.toString()}&reason=unverified`;
+  }
+}
 
 /* ============ Booking (sent via WhatsApp) ============ */
 function populateBookingServices(){

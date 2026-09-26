@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed — Hanni Beauty Palace</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --aubergine: #4A1942;
+            --aubergine-dark: #2E0F29;
+            --fuchsia: #C1156B;
+            --petal: #FBE7F0;
+            --petal-deep: #F3CFE0;
+            --ivory: #FFFBF7;
+            --gold: #C89B4A;
+            --ink: #2A1F27;
+            --ink-60: #6E5F69;
+        }
+        * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        body { font-family: 'Manrope', sans-serif; background: var(--ivory); color: var(--ink); }
+        h1, h2, h3, .serif { font-family: 'Fraunces', serif; }
+        .glass { background: rgba(255,251,247,0.85); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+        .shadow-soft { box-shadow: 0 14px 34px rgba(74,25,66,.10); }
+        .animate-in { animation: in .5s ease-out; } @keyframes in { from { opacity: 0; transform: translateY(10px);} to { opacity: 1; transform: translateY(0);} }
+        .pop-in { animation: pop .5s cubic-bezier(.34,1.56,.64,1) .1s both; } @keyframes pop { from { opacity:0; transform: scale(.7);} to { opacity:1; transform: scale(1);} }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="sticky top-0 z-40 glass border-b border-black/5">
+        <div class="max-w-[1400px] mx-auto px-4 md:px-8">
+            <div class="flex items-center h-[68px]">
+                <a href="index.html" class="flex items-baseline gap-1">
+                    <span class="serif text-[26px] leading-none tracking-tight" style="color:var(--aubergine);">Hanni</span>
+                    <span class="text-[11px] uppercase tracking-[0.18em] text-[#6E5F69] mt-1">Beauty Palace</span>
+                </a>
+                <a href="index.html" class="ml-auto text-[13px] font-medium hover:text-[#C1156B] flex items-center gap-1.5">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M10 3.5L4.5 8l5.5 4.5M5 8h9.5"/></svg>
+                    Back to store
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-[640px] mx-auto px-4 md:px-8 py-14 md:py-20">
+        <div class="bg-white rounded-[28px] border border-black/5 shadow-soft p-7 md:p-11 text-center animate-in">
+            <div class="w-20 h-20 mx-auto rounded-full grid place-items-center pop-in" style="background:var(--petal);">
+                <svg width="34" height="34" fill="none" stroke="var(--fuchsia)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 17l7 7 15-15"/></svg>
+            </div>
+            <h1 class="serif text-[32px] md:text-[40px] leading-tight mt-6">Payment Successful</h1>
+            <p id="intro-text" class="text-[#6E5F69] mt-3 text-[15.5px] leading-relaxed max-w-[440px] mx-auto">Thank you — your order is confirmed and the Hanni team is already getting it ready.</p>
+
+            <div id="pending-note" class="hidden mt-5 text-left border rounded-2xl p-4 flex gap-2.5" style="background:rgba(251,231,240,0.6); border-color:var(--petal-deep);">
+                <span class="text-[15px] leading-none mt-0.5">💌</span>
+                <p class="text-[13px] leading-relaxed text-[#6E5F69]">Your payment went through, but we're still confirming a couple of details on our end. You'll get a confirmation on WhatsApp shortly — if you don't hear from us within an hour, message us with your reference below.</p>
+            </div>
+
+            <div id="order-summary" class="mt-8 rounded-2xl border border-black/5 p-5 text-left text-[13.5px] divide-y divide-black/5" style="background:var(--ivory);">
+                <div class="pb-3 flex items-center justify-between gap-3"><span class="text-[#6E5F69]">Order reference</span><span id="ref-value" class="font-medium text-right">—</span></div>
+                <div id="row-items" class="py-3 hidden flex items-center justify-between gap-3"><span class="text-[#6E5F69]">Items</span><span id="items-value" class="font-medium"></span></div>
+                <div id="row-total" class="py-3 hidden flex items-center justify-between gap-3"><span class="text-[#6E5F69]">Total paid</span><span id="total-value" class="font-medium"></span></div>
+                <div id="row-delivery" class="py-3 hidden flex items-center justify-between gap-3"><span class="text-[#6E5F69]">Delivery</span><span id="delivery-value" class="font-medium text-right"></span></div>
+                <div id="row-email" class="pt-3 hidden flex items-center justify-between gap-3"><span class="text-[#6E5F69]">Confirmation sent to</span><span id="email-value" class="font-medium text-right truncate max-w-[220px]"></span></div>
+            </div>
+
+            <div class="mt-6 grid grid-cols-3 gap-3 text-left">
+                <div class="flex items-start gap-2"><span class="text-[15px] mt-0.5">🧴</span><p class="text-[12px] leading-snug text-[#6E5F69]">Order prepared within 1–2 business days</p></div>
+                <div class="flex items-start gap-2"><span class="text-[15px] mt-0.5">🚚</span><p class="text-[12px] leading-snug text-[#6E5F69]">Abeokuta: 1–2 days · Other towns/states: 2–5 days</p></div>
+                <div class="flex items-start gap-2"><span class="text-[15px] mt-0.5">💬</span><p class="text-[12px] leading-snug text-[#6E5F69]">We'll message you on WhatsApp with updates</p></div>
+            </div>
+
+            <div class="mt-8 flex flex-col sm:flex-row gap-3">
+                <a href="index.html" class="flex-1 h-12 grid place-items-center text-white rounded-full font-medium hover:opacity-90 transition" style="background:var(--aubergine);">Continue Shopping</a>
+                <a id="whatsapp-link" href="https://wa.me/2347038563822" target="_blank" rel="noopener" class="flex-1 h-12 grid place-items-center bg-white border border-black/10 rounded-full font-medium hover:bg-black/5 transition">Message us on WhatsApp</a>
+            </div>
+        </div>
+
+        <p class="text-center text-[13px] text-[#6E5F69] mt-6">Questions about your order? WhatsApp <a href="https://wa.me/2347038563822" class="hover:underline" style="color:var(--fuchsia);">0703 856 3822</a></p>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-[#F3E9E0] mt-10" style="background:var(--aubergine-dark);">
+        <div class="max-w-[1400px] mx-auto px-4 md:px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+            <div class="flex items-baseline gap-1"><span class="serif text-[22px] text-white">Hanni</span><span class="text-[11px] uppercase tracking-[0.18em]">Beauty Palace</span></div>
+            <p class="text-[12px] text-[#B8A8B3]">© 2026 Hanni Beauty Palace · Abeokuta, Ogun State</p>
+        </div>
+    </footer>
+
+    <script>
+        const NGN = n => '₦' + Number(n||0).toLocaleString('en-NG');
+        const params = new URLSearchParams(window.location.search);
+        const ref = params.get('ref') || '';
+        const name = (params.get('name') || '').trim();
+        const email = params.get('email') || '';
+        const city = params.get('city') || '';
+        const state = params.get('state') || '';
+        const total = params.get('total');
+        const items = params.get('items');
+        const pending = params.get('pending') === '1';
+
+        if(name){
+            document.getElementById('intro-text').textContent = `Thank you, ${name} — your order is confirmed and the Hanni team is already getting it ready.`;
+        }
+        if(pending){
+            document.getElementById('pending-note').classList.remove('hidden');
+        }
+
+        if(ref){
+            document.getElementById('ref-value').textContent = ref;
+        } else {
+            document.getElementById('order-summary').classList.add('hidden');
+            document.getElementById('intro-text').textContent = "We couldn't find order details for this link. If you just completed a purchase, check WhatsApp for confirmation, or reach out and we'll look it up.";
+        }
+        if(items){
+            document.getElementById('row-items').classList.remove('hidden');
+            document.getElementById('items-value').textContent = `${items} item${items==='1'?'':'s'}`;
+        }
+        if(total){
+            document.getElementById('row-total').classList.remove('hidden');
+            document.getElementById('total-value').textContent = NGN(total);
+        }
+        if(city || state){
+            document.getElementById('row-delivery').classList.remove('hidden');
+            document.getElementById('delivery-value').textContent = [city, state].filter(Boolean).join(' · ');
+        }
+        if(email){
+            document.getElementById('row-email').classList.remove('hidden');
+            document.getElementById('email-value').textContent = email;
+        }
+    </script>
+</body>
+</html>
